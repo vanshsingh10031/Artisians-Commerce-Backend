@@ -83,6 +83,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
+SECRET_KEY = 'django-insecure-u1tt8$($#t)n(wp7j*ingx7w^a0o4cm^(-wn_&s($#+th@f0$j'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -90,16 +91,17 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT', default='1433'),
+        'NAME': 'ArtisanEcommerce_New',
+        'USER': 'Dev3v',
+        'PASSWORD': 'gqJyJXW47CcH788',
+        'HOST': '103.180.120.47',
+        'PORT': '1433',
         'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server',
+            'driver': 'ODBC Driver 17 for SQL Server',  # match your local driver
         },
     }
 }
+
 
 
 
