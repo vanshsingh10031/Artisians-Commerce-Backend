@@ -1,20 +1,29 @@
 #!/usr/bin/env bash
 
-set -e  # stop on error
+set -o errexit  # stop on error
+set -o nounset  # stop on unbound variable
+set -o pipefail # catch pipe fails
 
-# Update system
+# Update system packages
 apt-get update -y
-apt-get install -y curl gnupg2 software-properties-common apt-transport-https
 
-# Add Microsoft repo for ODBC drivers (Debian 11 = bullseye)
+# Install prerequisites
+apt-get install -y curl apt-transport-https gnupg
+
+# Add Microsoft package repo for ODBC driver
 curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
-# Install ODBC Driver 17 and unixODBC
+# Update again after adding repo
 apt-get update -y
-ACCEPT_EULA=Y apt-get install -y msodbcsql17 unixodbc-dev
 
-# Upgrade pip & install Python deps
+# Install ODBC Driver 17 for SQL Server + tools
+ACCEPT_EULA=Y apt-get install -y msodbcsql17 mssql-tools unixodbc-dev
+
+# Optional: make sqlcmd and bcp globally available
+echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc
+
+# Upgrade pip + install Python deps
 pip install --upgrade pip --no-cache-dir
 pip install pyodbc --no-cache-dir
 pip install -r requirements.txt --no-cache-dir
