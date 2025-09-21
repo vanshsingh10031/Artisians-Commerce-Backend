@@ -97,12 +97,11 @@ DATABASES = {
         'HOST': '103.180.120.47',
         'PORT': '1433',
         'OPTIONS': {
-            'driver': 'FreeTDS',
-            'host_is_server': True,
-            'extra_params': 'TDS_Version=7.4',
+            'driver': 'ODBC Driver 17 for SQL Server',
         },
     }
 }
+
 
 
 
